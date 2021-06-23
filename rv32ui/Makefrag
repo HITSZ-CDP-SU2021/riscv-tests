@@ -8,7 +8,6 @@ rv32ui_sc_tests = \
 	and andi \
 	auipc \
 	beq bge bgeu blt bltu bne \
-	fence_i \
 	jal jalr \
 	lb lbu lh lhu lw \
 	lui \
