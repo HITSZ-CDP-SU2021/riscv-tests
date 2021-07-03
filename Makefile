@@ -17,7 +17,7 @@ default: all
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-linux-gnu-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
 RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles
-RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
+RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data -D
 RISCV_OBJCOPY ?= $(RISCV_PREFIX)objcopy -O binary 
 
 vpath %.S $(src_dir)
@@ -70,6 +70,9 @@ all: $(tests_dump) $(tests_bin)
 	@mkdir -p build
 	@rm -rf $(tests)
 	@mv $(stu_targets) build
+	@mkdir -p build/bin build/asm
+	@mv build/*.bin build/bin
+	@mv build/*.dump build/asm
 
 #------------------------------------------------------------
 # Clean up
