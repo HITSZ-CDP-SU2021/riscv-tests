@@ -20,14 +20,16 @@ RVTEST_CODE_BEGIN
 test_2:
   li  TESTNUM, 2
   li  t0, 0
-  la  t1, target_2
+  lui t1, %hi(target_2)
+  addi t1, t1, %lo(target_2)
 
   jalr t0, t1, 0
 linkaddr_2:
   j fail
 
 target_2:
-  la  t1, linkaddr_2
+  lui t1, %hi(linkaddr_2)
+  addi t1, t1, %lo(linkaddr_2)
   bne t0, t1, fail
 
   #-------------------------------------------------------------
@@ -36,14 +38,16 @@ target_2:
 
 test_3:
   li  TESTNUM, 3
-  la  t0, target_3
+  lui t0, %hi(target_3)
+  addi t0, t0, %lo(target_3)
 
   jalr t0, t0, 0
 linkaddr_3:
   j fail
 
 target_3:
-  la  t1, linkaddr_3
+  lui t1, %hi(linkaddr_3)
+  addi t1, t1, %lo(linkaddr_3)
   bne t0, t1, fail
 
   #-------------------------------------------------------------
@@ -63,7 +67,8 @@ target_3:
   .option norvc
   TEST_CASE( 7, t0, 4, \
     li  t0, 1; \
-    la  t1, 1f; \
+    lui t1, %hi(1f); \
+    addi t1, t1, %lo(1f); \
     jr  t1, -4; \
     addi t0, t0, 1; \
     addi t0, t0, 1; \

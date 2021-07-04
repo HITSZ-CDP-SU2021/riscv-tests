@@ -29,7 +29,8 @@ linkaddr_2:
   j fail
 
 target_2:
-  la  x2, linkaddr_2
+  lui x2, %hi(linkaddr_2)
+  addi x2, x2, %lo(linkaddr_2)
   bne x2, x4, fail
 
   #-------------------------------------------------------------

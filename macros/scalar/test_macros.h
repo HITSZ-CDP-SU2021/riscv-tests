@@ -217,13 +217,15 @@ test_ ## testnum: \
 
 #define TEST_LD_OP( testnum, inst, result, offset, base ) \
     TEST_CASE( testnum, x14, result, \
-      la  x1, base; \
+      lui x1, %hi(base);    \
+      addi x1, x1, %lo(base); \
       inst x14, offset(x1); \
     )
 
 #define TEST_ST_OP( testnum, load_inst, store_inst, result, offset, base ) \
     TEST_CASE( testnum, x14, result, \
-      la  x1, base; \
+      lui x1, %hi(base);    \
+      addi x1, x1, %lo(base); \
       li  x2, result; \
       store_inst x2, offset(x1); \
       load_inst x14, offset(x1); \
@@ -233,7 +235,8 @@ test_ ## testnum: \
 test_ ## testnum: \
     li  TESTNUM, testnum; \
     li  x4, 0; \
-1:  la  x1, base; \
+1:  lui x1, %hi(base);    \
+    addi x1, x1, %lo(base); \
     inst x14, offset(x1); \
     TEST_INSERT_NOPS_ ## nop_cycles \
     addi  x6, x14, 0; \
@@ -247,7 +250,8 @@ test_ ## testnum: \
 test_ ## testnum: \
     li  TESTNUM, testnum; \
     li  x4, 0; \
-1:  la  x1, base; \
+1:  lui x1, %hi(base);    \
+    addi x1, x1, %lo(base); \
     TEST_INSERT_NOPS_ ## nop_cycles \
     inst x14, offset(x1); \
     li  x7, result; \
@@ -262,7 +266,8 @@ test_ ## testnum: \
     li  x4, 0; \
 1:  li  x1, result; \
     TEST_INSERT_NOPS_ ## src1_nops \
-    la  x2, base; \
+    lui x2, %hi(base);    \
+    addi x2, x2, %lo(base); \
     TEST_INSERT_NOPS_ ## src2_nops \
     store_inst x1, offset(x2); \
     load_inst x14, offset(x2); \
@@ -276,7 +281,8 @@ test_ ## testnum: \
 test_ ## testnum: \
     li  TESTNUM, testnum; \
     li  x4, 0; \
-1:  la  x2, base; \
+1:  lui x2, %hi(base);    \
+    addi x2, x2, %lo(base); \
     TEST_INSERT_NOPS_ ## src1_nops \
     li  x1, result; \
     TEST_INSERT_NOPS_ ## src2_nops \
@@ -345,7 +351,8 @@ test_ ## testnum: \
 test_ ## testnum: \
     li  TESTNUM, testnum; \
     li  x4, 0; \
-1:  la  x6, 2f; \
+1:  lui  x6, %hi(2f); \
+    addi x6, x6, %lo(2f); \
     TEST_INSERT_NOPS_ ## nop_cycles \
     inst x6; \
     bne x0, TESTNUM, fail; \
@@ -357,7 +364,8 @@ test_ ## testnum: \
 test_ ## testnum: \
     li  TESTNUM, testnum; \
     li  x4, 0; \
-1:  la  x6, 2f; \
+1:  lui  x6, %hi(2f); \
+    addi x6, x6, %lo(2f); \
     TEST_INSERT_NOPS_ ## nop_cycles \
     inst x13, x6, 0; \
     bne x0, TESTNUM, fail; \
