@@ -17,7 +17,7 @@ default: all
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-linux-gnu-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
 RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles
-RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data -D
+RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data -D -Mno-aliases -Mnumeric
 RISCV_OBJCOPY ?= $(RISCV_PREFIX)objcopy -O binary 
 
 vpath %.S $(src_dir)
