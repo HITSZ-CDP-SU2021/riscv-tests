@@ -48,8 +48,8 @@ RVTEST_CODE_BEGIN
     li  x2, 0x58213098; \
     addi x1, x1, -3; \
     sw x2, 7(x1); \
-    lui x4, %hi(tdat9);    \
-    addi x4, x4, %lo(tdat9); \
+    lui x4, %hi(tdat10);    \
+    addi x4, x4, %lo(tdat10); \
     lw x5, 0(x4); \
   )
 
